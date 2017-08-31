@@ -1,6 +1,8 @@
 /*! jQuery Timepicker Addon - v1.6.3 - 2016-04-20
 * http://trentrichardson.com/examples/timepicker
-* Copyright (c) 2016 Trent Richardson; Licensed MIT */
+* Copyright (c) 2016 Trent Richardson; Licensed MIT
+*
+* Forked by Maciej Kawa 2017-08-31 */
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery', 'jquery-ui'], factory);
@@ -110,7 +112,8 @@
 			oneLine: false,
 			defaultValue: null,
 			parse: 'strict',
-			afterInject: null
+			afterInject: null,
+			changeFirstTime: false
 		};
 		$.extend(this._defaults, this.regional['']);
 	};
@@ -891,6 +894,10 @@
 
 			this.timeDefined = true;
 			if (hasChanged) {
+				if (!this._defaults.changeFirstTime) {
+					//this._defaults.changeFirstTime = true;
+					return;
+				}
 				this._updateDateTime();
 				//this.$input.focus(); // may automatically open the picker on setDate
 			}
